@@ -3,12 +3,11 @@ import random
 
 
 class Product(models.Model):
-
-    def gen_article(self):
-        l = self.color[:2].upper()
-        l += str(random.randint(1000, 9999))
-        l += self.color[:2].upper()
-        return l
+    # def gen_article(self):
+    #     l = self.color[:2].upper()
+    #     l += str(random.randint(1000, 9999))
+    #     l += self.color[:2].upper()
+    #     return l
 
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
@@ -21,7 +20,7 @@ class Product(models.Model):
     country = models.ForeignKey('Countries', on_delete=models.CASCADE)
     gender = models.ForeignKey('Genders', on_delete=models.CASCADE)
     color = models.ForeignKey('Colors', on_delete=models.CASCADE)
-    article = models.CharField(max_length=50, default=gen_article())
+    article = models.CharField(max_length=50, default='1')
 
 
 class Categories(models.Model):
@@ -52,3 +51,7 @@ class Countries(models.Model):
 
 class Genders(models.Model):
     name = models.CharField(max_length=7)
+
+
+class Colors(models.Model):
+    name = models.CharField(max_length=20)
