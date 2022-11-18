@@ -1,3 +1,3 @@
+from .models import *
 
-
-#class DataMixin:
+class DataMixin:

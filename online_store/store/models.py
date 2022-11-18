@@ -2,7 +2,7 @@ from django.db import models
 import random
 
 
-class Product(models.Model):
+class Products(models.Model):
     # def gen_article(self):
     #     l = self.color[:2].upper()
     #     l += str(random.randint(1000, 9999))
@@ -12,7 +12,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
     price = models.FloatField()
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', null=True)
     avail = models.BooleanField(default=True)
     size = models.IntegerField()
     brand = models.CharField(max_length=255)
@@ -32,7 +32,7 @@ class Categories(models.Model):
 
 class Cat_types(models.Model):
     name = models.CharField(max_length=255)
-    cat = models.ForeignKey('Categories', on_delete=models.CASCADE)
+    cat = models.ForeignKey(Categories, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
