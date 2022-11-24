@@ -13,7 +13,6 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
     price = models.FloatField()
-    image = models.ImageField(upload_to='images/', null=True)
     avail = models.BooleanField(default=True)
     size = models.IntegerField()
     brand = models.CharField(max_length=255)
@@ -22,6 +21,7 @@ class Product(models.Model):
     gender = models.ForeignKey('Genders', on_delete=models.CASCADE)
     color = models.ForeignKey('Colors', on_delete=models.CASCADE)
     article = models.CharField(max_length=50, default='1')
+    image = models.ImageField(upload_to=f'products/', null=True)
     url = models.SlugField(max_length=160, unique=False)
 
     def __str__(self):

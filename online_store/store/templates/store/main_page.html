@@ -1,2 +1,10 @@
 {% extends 'store/base.html' %}
 
+{% block content %}
+    {% for p in products %}
+        <li><h2>{{p.name}}</h2>
+
+    {% endfor %}
+
+
+{% endblock %}
