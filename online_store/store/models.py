@@ -1,5 +1,6 @@
 from django.db import models
 #import random
+from django.urls import reverse
 
 
 class Product(models.Model):
@@ -27,6 +28,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("product", kwargs={"slug": self.url})
+
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
@@ -53,6 +57,9 @@ class Cat_types(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("type", kwargs={"url": self.url})
 
     class Meta:
         verbose_name = 'Тип категории'

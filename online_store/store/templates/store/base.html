@@ -37,9 +37,10 @@
 
 				<li>Все категории</li>
 
-			{% for type in cats_types %}
+			{% for t in cats_types %}
 
-				<li><a href="">{{ type.name }}</a></li>
+<!--				<li><a href="">{{ type.name }}</a></li>-->
+				<li><a href="{{ t.get_absolute_url }}">{{t.name}}</a></li>
 
 
 			{% endfor %}
