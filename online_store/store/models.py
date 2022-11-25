@@ -15,8 +15,8 @@ class Product(models.Model):
     description = models.TextField(max_length=255)
     price = models.FloatField()
     avail = models.BooleanField(default=True)
-    size = models.IntegerField()
-    brand = models.CharField(max_length=255)
+    size = models.ForeignKey('Shoe_sizes', on_delete=models.CASCADE)
+    brand = models.ForeignKey('Brands', on_delete=models.CASCADE)
     type = models.ForeignKey('Cat_types', on_delete=models.CASCADE)
     country = models.ForeignKey('Countries', on_delete=models.CASCADE)
     gender = models.ForeignKey('Genders', on_delete=models.CASCADE)
@@ -24,6 +24,7 @@ class Product(models.Model):
     article = models.CharField(max_length=50, default='1')
     image = models.ImageField(upload_to=f'products/', null=True)
     url = models.SlugField(max_length=160, unique=False)
+    count = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -73,6 +74,9 @@ class Shoe_sizes(models.Model):
     """Размеры обуви"""
     value = models.CharField(max_length=5)
 
+    def __str__(self):
+        return self.value
+
     class Meta:
         verbose_name = 'Размер обуви'
         verbose_name_plural = 'Размеры обуви'
@@ -114,3 +118,15 @@ class Colors(models.Model):
     class Meta:
         verbose_name = 'Цвет'
         verbose_name_plural = 'Цвета'
+
+
+class Brands(models.Model):
+    """Бренды"""
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Бренд'
+        verbose_name_plural = 'Бренды'

@@ -6,8 +6,8 @@ from .models import *
 
 class ProductsAdmin(admin.ModelAdmin):
     list_display = ('name', 'price',
-                    'image', 'avail', 'size', 'brand', 'type',
-                    'country', 'gender', 'color', 'article')
+                    'avail', 'size', 'brand', 'type',
+                    'gender', 'article', 'count')
     list_filter = ('type', 'size', 'brand', 'gender')
 
 
@@ -15,6 +15,9 @@ class ProductsAdmin(admin.ModelAdmin):
 class CategoriesAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
+@admin.register(Brands)
+class BrandsAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 @admin.register(Cat_types)
 class Cat_typesAdmin(admin.ModelAdmin):
