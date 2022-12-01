@@ -9,6 +9,8 @@ class ProductsAdmin(admin.ModelAdmin):
                     'avail', 'size', 'brand', 'type',
                     'gender', 'article', 'count')
     list_filter = ('type', 'size', 'brand', 'gender')
+    prepopulated_fields = {'url': ('name',)}
+    search_fields = ['name', 'article']
 
 
 @admin.register(Categories)

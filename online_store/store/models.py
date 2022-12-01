@@ -1,15 +1,14 @@
+import os
+
 from django.db import models
-#import random
+# import random
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.urls import reverse
 
 
 class Product(models.Model):
     """Товары"""
-    # def gen_article(self):
-    #     l = self.color[:2].upper()
-    #     l += str(random.randint(1000, 9999))
-    #     l += self.color[:2].upper()
-    #     return l
 
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
@@ -25,6 +24,20 @@ class Product(models.Model):
     image = models.ImageField(upload_to=f'products/', null=True)
     url = models.SlugField(max_length=160, unique=False)
     count = models.IntegerField()
+
+    def save(self, *args, **kwargs):
+        #self.avail = True if self.count != 0 else False
+        if self.article == '1':
+            self.article = self.gen_article()
+        super().save(*args, **kwargs)
+
+    def gen_article(self):
+        from random import randint
+        col = str(self.color)
+        l = col[:2].upper()
+        l += str(randint(1000, 9999))
+        l += col[:2].upper()
+        return l
 
     def __str__(self):
         return self.name
@@ -130,3 +143,15 @@ class Brands(models.Model):
     class Meta:
         verbose_name = 'Бренд'
         verbose_name_plural = 'Бренды'
+
+
+def _delete_file(path):
+    """ Deletes file from filesystem. """
+    if os.path.isfile(path):
+        os.remove(path)
+
+
+@receiver(post_delete, sender=Product)
+def delete_photo(sender, instance, *args, **kwargs):
+    if instance.image:
+        _delete_file(instance.image.path)
